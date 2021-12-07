@@ -1,0 +1,18 @@
+## Defaults for _all_ profiles
+[default]
+address = "0.0.0.0"
+limits = { forms = "64 kB", json = "1 MiB" }
+
+## set only when compiled in debug mode, i.e., `cargo build`
+[debug]
+port = 8000
+limits = { json = "10 MiB" }
+
+## set only when compiled in release mode, `cargo build --release`
+[release]
+port = 9999
+secret_key = "oRgiqPJqgX1cp9E30N6dlcZ8xfJQlKlMokOSP2ifZJ0K"
+
+
+[global.databases]
+db = { url = "postgres://el_paso:gNmp9IoLxnc0MvMb@127.0.0.1/el_paso"}
