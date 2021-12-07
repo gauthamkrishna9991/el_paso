@@ -16,6 +16,7 @@ extern crate dotenv;
 pub mod errors;
 pub mod models;
 pub mod schema;
+pub mod routes;
 
 use rocket_sync_db_pools::{database, diesel as dpool};
 
@@ -31,5 +32,6 @@ fn index() -> &'static str {
 fn rocket() -> _ {
     rocket::build()
         .attach(DB::fairing())
+        .attach(routes::stage())
         .mount("/", routes![index])
 }

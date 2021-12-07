@@ -71,6 +71,7 @@ impl NewUser {
                     .get_result(conn)
                     .map_err(AuthError::DatabaseError)
             }
+            // If unsuccessful
             Err(hash_err) => Err(AuthError::HashError(hash_err)),
         }
     }
