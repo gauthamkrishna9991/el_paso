@@ -118,14 +118,14 @@ impl User {
 
 #[derive(Insertable, Deserialize)]
 #[table_name = "users"]
-pub struct NewUser {
+pub struct New {
     pub email: String,
     pub username: String,
     password_hash: String,
     password_salt: String,
 }
 
-impl NewUser {
+impl New {
     // CREATE OPERATION
 
     pub fn create_user(
@@ -141,7 +141,7 @@ impl NewUser {
             // If successful
             Ok(password_hash) => {
                 // Create the new user for insertion
-                let new_user = NewUser {
+                let new_user = New {
                     email,
                     username,
                     password_hash: password_hash.to_string(),
