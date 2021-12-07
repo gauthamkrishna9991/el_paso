@@ -1,3 +1,7 @@
+//! User Models
+//! 
+//! All Models needed for user operations
+
 use uuid::Uuid;
 
 use diesel::prelude::*;
