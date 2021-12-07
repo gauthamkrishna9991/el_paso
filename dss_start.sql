@@ -1,0 +1,7 @@
+-- Init Database Script
+
+CREATE ROLE el_paso WITH LOGIN PASSWORD 'gNmp9IoLxnc0MvMb' CREATEDB;
+
+CREATE DATABASE el_paso;
+
+GRANT ALL PRIVILEGES ON DATABASE el_paso TO el_paso;
