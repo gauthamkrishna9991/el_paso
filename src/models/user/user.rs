@@ -2,8 +2,7 @@
 //!
 //! All Models needed for user operations
 
-
-
+// UUID Support
 use uuid::Uuid;
 
 //  - Database Library Imports
@@ -23,7 +22,6 @@ use bcrypt::verify;
 
 // Authentication Error
 use crate::errors::auth::AuthError;
-
 
 #[derive(Queryable, Serialize, Deserialize)]
 pub struct User {

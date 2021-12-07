@@ -1,18 +1,25 @@
+// Size of random salt characters addeable.
 const SALT_SIZE: usize = 16;
 
-use diesel::prelude::*;
-use diesel::PgConnection;
-
-use rand::{distributions::Alphanumeric, Rng};
-
+// Hashing - bcrypt
 use bcrypt::{hash_with_salt, DEFAULT_COST};
 
-// - Schema + Model
-//  - Model
+// Random Value Generation - rand
+use rand::{distributions::Alphanumeric, Rng};
+
+//  - Database Library Imports
+//    - Diesel Prelude
+use diesel::prelude::*;
+//    - Connection
+use diesel::PgConnection;
+
+//  - Schema + Model
+//    - Model
 use crate::schema::users;
-//  - Schema Model
+//    - Schema
 use crate::schema::users::dsl::users as users_schema;
 
+// Import User Type
 use super::user::User;
 
 // Authentication Error
