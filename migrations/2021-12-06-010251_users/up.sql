@@ -8,4 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(255) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     password_salt TEXT NOT NULL
+    -- date_created TIMESTAMP DEFAULT NOW(),
+    -- last_updated TIMESTAMP DEFAULT NOW() NOT NULL
 );

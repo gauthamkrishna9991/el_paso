@@ -85,7 +85,6 @@ impl User {
     pub fn update(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
         diesel::update(users_schema.find(self.user_id))
             .set((
-                // users::email.eq(self.email.clone()),
                 users::username.eq(self.username.clone()),
                 users::password_hash.eq(self.password_hash.clone()),
                 users::password_salt.eq(self.password_salt.clone()),
