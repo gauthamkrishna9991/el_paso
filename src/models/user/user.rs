@@ -26,7 +26,6 @@ use crate::errors::auth::AuthError;
 #[derive(Queryable, Serialize, Deserialize)]
 pub struct User {
     pub user_id: Uuid,
-    pub email: String,
     pub username: String,
     //  Make that you switch to a better data type, better than to handle
     //  password salts and hashes as a string.
@@ -51,12 +50,12 @@ impl User {
     pub fn get_user(conn: &PgConnection, user_id: Uuid) -> Result<Self, diesel::result::Error> {
         users_schema.find(user_id).first(conn)
     }
-    pub fn get_user_by_email(
-        conn: &PgConnection,
-        email: String,
-    ) -> Result<Self, diesel::result::Error> {
-        users_schema.filter(users::email.eq(email)).first(conn)
-    }
+    // pub fn get_user_by_email(
+    //     conn: &PgConnection,
+    //     email: String,
+    // ) -> Result<Self, diesel::result::Error> {
+    //     users_schema.filter(users::email.eq(email)).first(conn)
+    // }
 
     pub fn auth_uname(
         conn: &PgConnection,
@@ -86,7 +85,7 @@ impl User {
     pub fn update(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
         diesel::update(users_schema.find(self.user_id))
             .set((
-                users::email.eq(self.email.clone()),
+                // users::email.eq(self.email.clone()),
                 users::username.eq(self.username.clone()),
                 users::password_hash.eq(self.password_hash.clone()),
                 users::password_salt.eq(self.password_salt.clone()),

@@ -37,7 +37,6 @@ pub fn get_salt_string() -> String {
 #[derive(Insertable, Deserialize)]
 #[table_name = "users"]
 pub struct NewUser {
-    pub email: String,
     pub username: String,
     password_hash: String,
     password_salt: String,
@@ -50,7 +49,6 @@ impl NewUser {
         conn: &PgConnection,
         username: String,
         password: String,
-        email: String,
     ) -> Result<User, AuthError> {
         // Create the new salt string
         let password_salt = get_salt_string();
@@ -60,7 +58,6 @@ impl NewUser {
             Ok(password_hash) => {
                 // Create the new user for insertion
                 let new_user = Self {
-                    email,
                     username,
                     password_hash: password_hash.to_string(),
                     password_salt,
