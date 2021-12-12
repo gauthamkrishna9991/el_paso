@@ -13,6 +13,9 @@ use diesel::prelude::*;
 //    - Connection
 use diesel::PgConnection;
 
+//  - Datetime/Timestamp Library
+use std::time::SystemTime;
+
 //  - Schema + Model
 //    - Model
 use crate::schema::users;
@@ -40,6 +43,8 @@ pub struct NewUser {
     pub username: String,
     password_hash: String,
     password_salt: String,
+    date_created: SystemTime,
+    last_updated: SystemTime,
 }
 
 impl NewUser {
@@ -61,11 +66,13 @@ impl NewUser {
                     username,
                     password_hash: password_hash.to_string(),
                     password_salt,
+                    date_created: SystemTime::now(),
+                    last_updated: SystemTime::now(),
                 };
                 // Insert the new user, map error to database error
                 diesel::insert_into(users_schema)
                     .values(&new_user)
-                    .get_result(conn)
+                    .get_result::<User>(conn)
                     .map_err(AuthError::DatabaseError)
             }
             // If unsuccessful

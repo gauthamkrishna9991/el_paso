@@ -11,6 +11,9 @@ use diesel::prelude::*;
 //    - Connection
 use diesel::PgConnection;
 
+//  - Datetime/Timestamp Imports
+use std::time::SystemTime;
+
 //  - Schema + Model
 //    - Model
 use crate::schema::users;
@@ -31,6 +34,8 @@ pub struct User {
     //  password salts and hashes as a string.
     password_hash: String,
     password_salt: String,
+    date_created: SystemTime,
+    last_updated: SystemTime,
 }
 
 impl User {
@@ -88,6 +93,7 @@ impl User {
                 users::username.eq(self.username.clone()),
                 users::password_hash.eq(self.password_hash.clone()),
                 users::password_salt.eq(self.password_salt.clone()),
+                users::last_updated.eq(SystemTime::now()),
             ))
             .execute(conn)
             .map(|ans| ans == 1)

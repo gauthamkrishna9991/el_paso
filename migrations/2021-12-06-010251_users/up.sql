@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4 (),
     username VARCHAR(255) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    password_salt TEXT NOT NULL
-    -- date_created TIMESTAMP DEFAULT NOW(),
-    -- last_updated TIMESTAMP DEFAULT NOW() NOT NULL
+    password_salt TEXT NOT NULL,
+    date_created TIMESTAMP DEFAULT NOW() NOT NULL,
+    last_updated TIMESTAMP DEFAULT NOW() NOT NULL
 );
