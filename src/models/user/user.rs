@@ -11,6 +11,9 @@ use diesel::prelude::*;
 //    - Connection
 use diesel::PgConnection;
 
+// - Import System Time
+use std::time::SystemTime;
+
 //  - Schema + Model
 //    - Model
 use crate::schema::users;
@@ -31,6 +34,8 @@ pub struct User {
     //  password salts and hashes as a string.
     password_hash: String,
     password_salt: String,
+    date_created: SystemTime,
+    last_modified: SystemTime,
 }
 
 impl User {
@@ -50,12 +55,30 @@ impl User {
     pub fn get_user(conn: &PgConnection, user_id: Uuid) -> Result<Self, diesel::result::Error> {
         users_schema.find(user_id).first(conn)
     }
-    // pub fn get_user_by_email(
-    //     conn: &PgConnection,
-    //     email: String,
-    // ) -> Result<Self, diesel::result::Error> {
-    //     users_schema.filter(users::email.eq(email)).first(conn)
-    // }
+
+    // UPDATE OPERATION
+
+    pub fn update(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
+        diesel::update(users_schema.find(self.user_id))
+            .set((
+                users::username.eq(self.username.clone()),
+                users::password_hash.eq(self.password_hash.clone()),
+                users::password_salt.eq(self.password_salt.clone()),
+                users::last_modified.eq(SystemTime::now())
+            ))
+            .execute(conn)
+            .map(|ans| ans == 1)
+    }
+
+    // DELETE OPERATION
+
+    pub fn delete(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
+        diesel::delete(users_schema.find(self.user_id))
+            .execute(conn)
+            .map(|ans| ans == 1)
+    }
+
+    // OTHER OPERATIONS
 
     pub fn auth_uname(
         conn: &PgConnection,
@@ -78,26 +101,5 @@ impl User {
             },
             Err(db_err) => Err(AuthError::DatabaseError(db_err)),
         }
-    }
-
-    // UPDATE OPERATION
-
-    pub fn update(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
-        diesel::update(users_schema.find(self.user_id))
-            .set((
-                users::username.eq(self.username.clone()),
-                users::password_hash.eq(self.password_hash.clone()),
-                users::password_salt.eq(self.password_salt.clone()),
-            ))
-            .execute(conn)
-            .map(|ans| ans == 1)
-    }
-
-    // DELETE OPERATION
-
-    pub fn delete(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
-        diesel::delete(users_schema.find(self.user_id))
-            .execute(conn)
-            .map(|ans| ans == 1)
     }
 }
