@@ -11,7 +11,7 @@ use diesel::prelude::*;
 //    - Connection
 use diesel::PgConnection;
 
-// - Import System Time
+//  - Datetime/Timestamp Library
 use std::time::SystemTime;
 
 //  - Schema + Model
@@ -35,7 +35,11 @@ pub struct User {
     password_hash: String,
     password_salt: String,
     date_created: SystemTime,
+<<<<<<< HEAD
     last_modified: SystemTime,
+=======
+    last_updated: SystemTime,
+>>>>>>> ff063eb0459f414334c3816682f40967cb26abde
 }
 
 impl User {
@@ -102,4 +106,29 @@ impl User {
             Err(db_err) => Err(AuthError::DatabaseError(db_err)),
         }
     }
+<<<<<<< HEAD
+=======
+
+    // UPDATE OPERATION
+
+    pub fn update(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
+        diesel::update(users_schema.find(self.user_id))
+            .set((
+                users::username.eq(self.username.clone()),
+                users::password_hash.eq(self.password_hash.clone()),
+                users::password_salt.eq(self.password_salt.clone()),
+                users::last_updated.eq(SystemTime::now()),
+            ))
+            .execute(conn)
+            .map(|ans| ans == 1)
+    }
+
+    // DELETE OPERATION
+
+    pub fn delete(&self, conn: &PgConnection) -> Result<bool, diesel::result::Error> {
+        diesel::delete(users_schema.find(self.user_id))
+            .execute(conn)
+            .map(|ans| ans == 1)
+    }
+>>>>>>> ff063eb0459f414334c3816682f40967cb26abde
 }

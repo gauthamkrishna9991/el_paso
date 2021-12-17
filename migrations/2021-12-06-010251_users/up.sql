@@ -9,5 +9,9 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT NOT NULL,
     password_salt TEXT NOT NULL,
     date_created TIMESTAMP DEFAULT NOW() NOT NULL,
+<<<<<<< HEAD
     last_modified TIMESTAMP DEFAULT NOW() NOT NULL
+=======
+    last_updated TIMESTAMP DEFAULT NOW() NOT NULL
+>>>>>>> ff063eb0459f414334c3816682f40967cb26abde
 );
