@@ -1,3 +1,4 @@
+// -- ALL LIBRARY IMPORTS --
 // Database - Diesel
 #[macro_use]
 extern crate diesel;
@@ -12,6 +13,7 @@ extern crate bcrypt;
 // Environment Variable - dotenv (.env)
 extern crate dotenv;
 
+// -- PACKAGE IMPORTS --
 // Self-Imports
 pub mod errors;
 pub mod models;
@@ -25,7 +27,7 @@ struct DB(dpool::PgConnection);
 
 #[get("/")]
 fn index() -> &'static str {
-    "Hello, World!"
+    "EL_PASO SERVER"
 }
 
 #[launch]

@@ -11,19 +11,20 @@ diesel = { version = "1.4.8", features = [
     "postgres",
     "r2d2",
     "uuidv07",
+    "serde_json",
 ] }
 # Environment Variable Library
 dotenv = "0.15.0"
 # UUID Library
 uuid = { version = "0.8.2", features = ["serde", "v4"] }
 # Serializer-Deserializer Library
-serde = { version = "1.0.130", features = ["derive"] }
+serde = { version = "1.0.73", features = ["derive"] }
 # BCrypt Library
 bcrypt = "0.10.1"
 # Rand Library
 rand = "0.8.4"
 # Webserver Library (Rocket)
-rocket = "0.5.0-rc.1"
+rocket = { version = "0.5.0-rc.1", features = ["json"] }
 # Rocket Database pools
 [dependencies.rocket_sync_db_pools]
 version = "0.1.0-rc.1"
