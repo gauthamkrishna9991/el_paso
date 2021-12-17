@@ -44,11 +44,7 @@ pub struct NewUser {
     password_hash: String,
     password_salt: String,
     date_created: SystemTime,
-<<<<<<< HEAD
     last_modified: SystemTime,
-=======
-    last_updated: SystemTime,
->>>>>>> ff063eb0459f414334c3816682f40967cb26abde
 }
 
 impl NewUser {
@@ -71,11 +67,7 @@ impl NewUser {
                     password_hash: password_hash.to_string(),
                     password_salt,
                     date_created: SystemTime::now(),
-<<<<<<< HEAD
                     last_modified: SystemTime::now(),
-=======
-                    last_updated: SystemTime::now(),
->>>>>>> ff063eb0459f414334c3816682f40967cb26abde
                 };
                 // Insert the new user, map error to database error
                 diesel::insert_into(users_schema)
